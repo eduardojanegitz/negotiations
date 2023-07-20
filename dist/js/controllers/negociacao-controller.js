@@ -14,9 +14,15 @@ export class NegociacaoController {
     }
     adiciona() {
         const negociacao = this.criaNegociacao();
-        this.negociacoes.adiciona(negociacao);
-        this.limparFormulario();
-        this.atualizaView();
+        // 0 -> domingo, 6 -> sábado
+        if (negociacao.data.getDay() > 0 && negociacao.data.getDay() < 6) {
+            this.negociacoes.adiciona(negociacao);
+            this.limparFormulario();
+            this.atualizaView();
+        }
+        else {
+            this.mensagemView.update('São aceitos negociações apenas em dias úteis.');
+        }
     }
     criaNegociacao() {
         // Expressão regular utilizado para pegar todos os hifens das datas

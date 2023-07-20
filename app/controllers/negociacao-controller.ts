@@ -20,17 +20,25 @@ export class NegociacaoController {
 
   public adiciona(): void {
     const negociacao = this.criaNegociacao();
-    this.negociacoes.adiciona(negociacao);
-    this.limparFormulario();
-    this.atualizaView();
+    
+    // 0 -> domingo, 6 -> sábado
+    if (negociacao.data.getDay() > 0 && negociacao.data.getDay() < 6) {
+      this.negociacoes.adiciona(negociacao);
+      this.limparFormulario();
+      this.atualizaView();
+    } else {
+      this.mensagemView.update('São aceitos negociações apenas em dias úteis.')
+    }
   }
   private criaNegociacao(): Negociacao {
     // Expressão regular utilizado para pegar todos os hifens das datas
     const exp = /-/g;
+
     // Trocando os hifens por vírgula, com o replace
     const date = new Date(this.inputData.value.replace(exp, ","));
     const quantidade = parseInt(this.inputQuantidade.value);
     const valor = parseFloat(this.inputValor.value);
+
     // Instanciando a variável
     return new Negociacao(date, quantidade, valor);
   }
