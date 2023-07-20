@@ -1,13 +1,17 @@
 export class Negociacao {
+  /* 
+    ESSA FORMA É O QUE O PESSOAL DE JAVA FAZ, O TYPESCRIPT TEM ALGO MAIS SIMPLIFICADO
   private _data: Date;
   private _quantidade: number;
   private _valor: number;
+*/
 
-  constructor(data: Date, quantidade: number, valor: number) {
-    this._data = data;
-    this._quantidade = quantidade;
-    this._valor = valor;
-  }
+  // SE NO MEU CONSTRUCTOR FOR REFERENCIAR OS MESMOS VALORES ATRIBUÍDOS ACIMA, SÓ FAZER DA MANEIRA ABAIXO
+  constructor(
+    private _data: Date,
+    private _quantidade: number,
+    private _valor: number
+  ) {}
 
   get data(): Date {
     return this._data;
