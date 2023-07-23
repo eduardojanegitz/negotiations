@@ -28,4 +28,22 @@ export class Negociacao {
   get volume(): number {
     return this._quantidade * this._valor;
   }
+
+  // Método estático
+  public static criaDe(
+    dataString: string,
+    quantidadeString: string,
+    valorString: string
+  ): Negociacao {
+    // Expressão regular utilizado para pegar todos os hifens das datas
+    const exp = /-/g;
+
+    // Trocando os hifens por vírgula, com o replace
+    const date = new Date(dataString.replace(exp, ","));
+    const quantidade = parseInt(quantidadeString);
+    const valor = parseFloat(valorString);
+
+    // Instanciando a variável
+    return new Negociacao(date, quantidade, valor);
+  }
 }
