@@ -14,7 +14,6 @@ export class NegociacoesView extends View {
                 ${model
             .lista()
             .map((negociacao) => {
-            // Intl.DateTimeFormat() é uma maneira de formatar a data conforme a localidade
             return `<tr>
                                 <td>${this.formatar(negociacao.data)}</td> 
                                 <td>${negociacao.quantidade}</td>
