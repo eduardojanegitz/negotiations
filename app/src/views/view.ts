@@ -1,7 +1,8 @@
-export abstract class View<T> {
+import { logarTempoExecucao } from "../decorators/logar-tempo-execucao.js";
 
+export abstract class View<T> {
   // Implementando o abstract para ela não ser instanciada
-  protected elemento: HTMLElement; 
+  protected elemento: HTMLElement;
   // Foi utilizado o modificador protected, para que os filhos possam utilizar o atributo
 
   private escapar: Boolean = false;
@@ -16,6 +17,7 @@ export abstract class View<T> {
 
   protected abstract template(model: T): string;
 
+  @logarTempoExecucao()
   public update(model: T): void {
     let template = this.template(model);
     if (this.escapar) {
