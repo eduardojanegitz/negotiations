@@ -1,3 +1,4 @@
+import { inspect } from "../decorators/inspect.js";
 import { logarTempoExecucao } from "../decorators/logar-tempo-execucao.js";
 
 export abstract class View<T> {
@@ -5,24 +6,18 @@ export abstract class View<T> {
   protected elemento: HTMLElement;
   // Foi utilizado o modificador protected, para que os filhos possam utilizar o atributo
 
-  private escapar: Boolean = false;
 
   // ? parâmetros opcionais - devem ser sempre os últimos
-  constructor(seletor: string, escapar?: boolean) {
+  constructor(seletor: string) {
     this.elemento = document.querySelector(seletor);
-    if (escapar) {
-      this.escapar = escapar;
-    }
   }
 
   protected abstract template(model: T): string;
 
   @logarTempoExecucao()
+  @inspect()
   public update(model: T): void {
     let template = this.template(model);
-    if (this.escapar) {
-      template = template.replace(/<script>[\s\S]*?<\/script>/, "");
-    }
     this.elemento.innerHTML = template;
   }
 }
