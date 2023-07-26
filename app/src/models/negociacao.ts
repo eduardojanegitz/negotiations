@@ -1,12 +1,16 @@
-export class Negociacao {
+import { Modelo } from "../interfaces/modelo.js";
+
+export class Negociacao implements Modelo<Negociacao> {
   /* 
-    ESSA FORMA É O QUE O PESSOAL DE JAVA FAZ, O TYPESCRIPT TEM ALGO MAIS SIMPLIFICADO
+  ESSA FORMA É O QUE O PESSOAL DE JAVA FAZ, O TYPESCRIPT TEM ALGO MAIS SIMPLIFICADO
+  
   private _data: Date;
   private _quantidade: number;
   private _valor: number;
 */
 
-  // SE NO MEU CONSTRUCTOR FOR REFERENCIAR OS MESMOS VALORES ATRIBUÍDOS ACIMA, SÓ FAZER DA MANEIRA ABAIXO
+  // SE NO MEU CONSTRUCTOR FOR REFERENCIAR OS MESMOS VALORES ATRIBUÍDOS ACIMA,
+  // SÓ FAZER DA MANEIRA ABAIXO
   constructor(
     private _data: Date,
     private _quantidade: number,
@@ -45,5 +49,19 @@ export class Negociacao {
 
     // Instanciando a variável
     return new Negociacao(date, quantidade, valor);
+  }
+
+  public paraTexto(): string {
+    return `Data: ${this.data}
+            Quantidade: ${this.quantidade}
+            Valor: ${this.valor}`;
+  }
+
+  public compara(negociacao: Negociacao): boolean {
+    return (
+      this.data.getDate() === negociacao.data.getDate() &&
+      this.data.getMonth() === negociacao.data.getMonth() &&
+      this.data.getFullYear() === negociacao.data.getFullYear()
+    );
   }
 }

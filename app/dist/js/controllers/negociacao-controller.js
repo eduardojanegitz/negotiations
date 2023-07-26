@@ -35,10 +35,18 @@ export class NegociacaoController {
         this.negociacaoService
             .obterNegociacoes()
             .then((negociacoesDeHoje) => {
+            return negociacoesDeHoje.filter((negociacoesDeHoje) => {
+                return !this.negociacoes
+                    .lista()
+                    .some((negociacao) => negociacao.compara(negociacoesDeHoje));
+            });
+        })
+            .then((negociacoesDeHoje) => {
             for (let negociacao of negociacoesDeHoje) {
                 this.negociacoes.adiciona(negociacao);
             }
             this.negociacoesView.update(this.negociacoes);
+            this.mensagemView.update("Importação realizada com sucesso");
         });
     }
     diaUtil(data) {
