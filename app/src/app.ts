@@ -6,3 +6,12 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
   controller.adiciona();
 });
+
+const botaoImporta = document.querySelector("#botao-importar");
+if (botaoImporta) {
+  botaoImporta.addEventListener("click", () => {
+    controller.importaDados();
+  });
+} else {
+  throw Error("Botão importa não foi encontrado");
+}
